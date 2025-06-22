@@ -2,7 +2,7 @@ const Router = require("express").Router;
 const router = new Router();
 const categoryController = require('../controllers/categoryController');
 const uploadImages = require('../middlewares/uploadImages');
-import authMiddleware from '../middlewares/authMiddleware.js';
+const authMiddleware = require('../middlewares/authMiddleware');
 const checkRole = require('../middlewares/checkRole');
 
 router.get('/', categoryController.getAllCategories);

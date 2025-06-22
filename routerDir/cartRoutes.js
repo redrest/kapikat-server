@@ -1,7 +1,7 @@
 const Router = require("express").Router;
 const router = new Router();
 const cartController = require('../controllers/cartController');
-import authMiddleware from '../middlewares/authMiddleware.js';
+const authMiddleware = require('../middlewares/authMiddleware');
 
 router.get('/', authMiddleware, cartController.getCart);
 router.post('/add', authMiddleware, cartController.addToCart);
