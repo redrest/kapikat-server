@@ -1,6 +1,5 @@
 const productModel = require('../models/productModel');
 const ApiError = require('../exceptions/ApiError');
-const {validationResult} = require('express-validator');
 const categoryModel = require('../models/categoryModel');
 
 exports.createProduct = async (req, res, next) => {
