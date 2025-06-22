@@ -3,7 +3,7 @@ const productController = require('../controllers/productController');
 const {productValidationRules} = require("../validators/productValidator");
 const router = new Router();
 const uploadImages = require('../middlewares/uploadImages');
-const authmiddleware = require('../middlewares/authmiddleware');
+const authMiddleware = require('../middlewares/authMiddleware');
 const checkRole = require('../middlewares/checkRole');
 
 router.get('/', productController.getAllProducts);
@@ -11,7 +11,7 @@ router.get('/:id', productController.getProductById);
 
 router.post(
     '/',
-    authmiddleware,
+    authMiddleware,
     checkRole('ADMIN'),
     uploadImages.single('image'),
     productValidationRules,
@@ -19,7 +19,7 @@ router.post(
 );
 router.put(
     '/:id',
-    authmiddleware,
+    authMiddleware,
     checkRole('ADMIN'),
     uploadImages.single('image'),
     productValidationRules,
@@ -27,7 +27,7 @@ router.put(
 );
 router.delete(
     '/:id',
-    authmiddleware,
+    authMiddleware,
     checkRole('ADMIN'),
     productController.deleteProduct);
 
