@@ -1,4 +1,4 @@
-const UserService = require('../service/userService');
+const userService = require('../service/userService');
 const {validationResult} = require('express-validator');
 const ApiError = require("../exceptions/ApiError");
 const userModel = require('../models/userModel');
@@ -11,7 +11,7 @@ class userController {
                 return next(ApiError.BadRequest('Ошибка при валидации', errors.array()));
             }
             const {email, password} = req.body;
-            const userData = await UserService.registration(email, password);
+            const userData = await userService.registration(email, password);
             res.cookie('refreshToken', userData.refreshToken, {
                 maxAge: 14*24*60*60*1000,
                 httpOnly: true,
@@ -25,7 +25,7 @@ class userController {
     async login(req, res, next) {
         try {
             const {email, password} = req.body;
-            const userData = await UserService.login(email, password);
+            const userData = await userService.login(email, password);
             res.cookie('refreshToken', userData.refreshToken, {
                 maxAge: 14*24*60*60*1000,
                 httpOnly: true,
@@ -39,7 +39,7 @@ class userController {
     async logout(req, res, next) {
         try {
             const {refreshToken} = req.cookies;
-            const token = await UserService.logout(refreshToken);
+            const token = await userService.logout(refreshToken);
             res.clearCookie('refreshToken');
             return res.json(token);
         } catch (e) {
@@ -53,7 +53,7 @@ class userController {
             if (!refreshToken) {
                 return next(ApiError.BadRequest('Отсутствует refresh токен в cookies'));
             }
-            const userData = await UserService.refreshUserToken(refreshToken);
+            const userData = await userService.refreshUserToken(refreshToken);
 
             res.cookie('refreshToken', userData.refreshToken, {
                 maxAge: 14*24*60*60*1000,
@@ -98,7 +98,7 @@ class userController {
     async confirmEmail(req, res, next) {
         try {
             const { email, code } = req.body;
-            const response = await UserService.confirmEmail(email, code);
+            const response = await userService.confirmEmail(email, code);
             res.cookie('refreshToken', response.refreshToken, {
                 maxAge: 14 * 24 * 60 * 60 * 1000,
                 httpOnly: true
@@ -112,7 +112,7 @@ class userController {
     async forgotPassword(req, res, next) {
         try {
             const { email } = req.body;
-            const response = await UserService.forgotPassword(email);
+            const response = await userService.forgotPassword(email);
             res.json(response);
         } catch (e) {
             next(e);
@@ -122,7 +122,7 @@ class userController {
     async resendResetPasswordCode(req, res, next) {
         try {
             const { email } = req.body;
-            const result = await UserService.resendResetPasswordCode(email);
+            const result = await userService.resendResetPasswordCode(email);
             res.json(result);
         } catch (e) {
             next(e);
@@ -132,7 +132,7 @@ class userController {
     async verifyResetCode(req, res, next) {
         try {
             const { email, code } = req.body;
-            await UserService.verifyResetCode(email, code);
+            await userService.verifyResetCode(email, code);
             res.json({ message: 'Код подтвержден.' });
         } catch (e) {
             next(e);
@@ -142,7 +142,7 @@ class userController {
     async setNewPassword(req, res, next) {
         try {
             const { email, newPassword } = req.body;
-            await UserService.setNewPassword(email, newPassword);
+            await userService.setNewPassword(email, newPassword);
             res.json({ message: 'Пароль успешно изменен' });
         } catch (e) {
             next(e);
@@ -152,7 +152,7 @@ class userController {
     async verifyOldPassword(req, res, next) {
         try {
             const { oldPassword } = req.body;
-            const response = await UserService.verifyOldPassword(req.user.id, oldPassword);
+            const response = await userService.verifyOldPassword(req.user.id, oldPassword);
             return res.json(response);
         } catch (e) {
             next(e);
@@ -162,7 +162,7 @@ class userController {
     async changePassword(req, res, next) {
         try {
             const { newPassword } = req.body;
-            const response = await UserService.changePassword(req.user.id, newPassword);
+            const response = await userService.changePassword(req.user.id, newPassword);
             return res.json(response);
         } catch (e) {
             next(e);
@@ -172,7 +172,7 @@ class userController {
     async resendConfirmationCode(req, res, next) {
         try {
             const { email } = req.body;
-            const result = await UserService.resendConfirmationCode(email);
+            const result = await userService.resendConfirmationCode(email);
             return res.json(result);
         } catch (e) {
             next(e);

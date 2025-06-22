@@ -6,7 +6,7 @@ const UserDto = require('../dtos/userDto');
 const mailService = require('../service/mailService');
 const generateCode = () => Math.floor(100000 + Math.random() * 900000).toString();
 
-class UserService {
+class userService {
     async registration(email, password) {
         const person = await UserModel.findOne({email});
         if(person) {
@@ -184,4 +184,4 @@ class UserService {
     }
 }
 
-module.exports = new UserService();
+module.exports = new userService();
