@@ -2,26 +2,26 @@ const Router = require("express").Router;
 const router = new Router();
 const categoryController = require('../controllers/categoryController');
 const uploadImages = require('../middlewares/uploadImages');
-const authMiddleware = require('../middlewares/authMiddleware');
+const authmiddleware = require('../middlewares/authmiddleware');
 const checkRole = require('../middlewares/checkRole');
 
 router.get('/', categoryController.getAllCategories);
 router.get('/:id', categoryController.getCategoryById);
 router.post(
     '/',
-    authMiddleware,
+    authmiddleware,
     checkRole('ADMIN'),
     uploadImages.single('image'),
     categoryController.createCategory);
 router.put(
     '/:id',
-    authMiddleware,
+    authmiddleware,
     checkRole('ADMIN'),
     uploadImages.single('image'),
     categoryController.updateCategory);
 router.delete(
     '/:id',
-    authMiddleware,
+    authmiddleware,
     checkRole('ADMIN'),
     categoryController.deleteCategory);
 
