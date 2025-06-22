@@ -3,7 +3,7 @@ const productController = require('../controllers/productController');
 const {productValidationRules} = require("../validators/productValidator");
 const router = new Router();
 const uploadImages = require('../middlewares/uploadImages');
-const authMiddleware = require('../middlewares/authMiddleware');
+import authMiddleware from '../middlewares/authMiddleware.js';
 const checkRole = require('../middlewares/checkRole');
 
 router.get('/', productController.getAllProducts);

@@ -1,6 +1,6 @@
 const Router = require("express").Router;
 const router = new Router();
-const authMiddleware = require('../middlewares/authMiddleware');
+import authMiddleware from '../middlewares/authMiddleware.js';
 const userController = require('../controllers/userController');
 const addressController = require('../controllers/addressController');
 

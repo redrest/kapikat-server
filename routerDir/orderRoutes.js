@@ -1,7 +1,7 @@
 const Router = require("express").Router;
 const router = new Router();
 const orderController = require('../controllers/orderController');
-const authMiddleware = require('../middlewares/authMiddleware');
+import authMiddleware from '../middlewares/authMiddleware.js';
 
 router.post('/', authMiddleware, orderController.createOrder);
 router.get('/latest', authMiddleware, orderController.getLatestOrder);
