@@ -1,24 +1,24 @@
 const Router = require("express").Router;
-const UserController = require("../controllers/UserController");
+const userController = require("../controllers/userController");
 const {body} = require("express-validator");
 const router = new Router();
 
 router.post('/registration',
     body('email').isEmail(),
     body('password').isLength({min: 8, max: 32}),
-    UserController.registration
+    userController.registration
 );
-router.post('/login', UserController.login);
-router.post('/logout', UserController.logout);
-router.post('/refresh', UserController.refreshUserToken);
+router.post('/login', userController.login);
+router.post('/logout', userController.logout);
+router.post('/refresh', userController.refreshUserToken);
 
-router.post('/forgot-password', UserController.forgotPassword);
-router.post('/resend-reset-code', UserController.resendResetPasswordCode);
-router.post('/verify-code', UserController.verifyResetCode);
-router.post('/set-new-password', UserController.setNewPassword);
+router.post('/forgot-password', userController.forgotPassword);
+router.post('/resend-reset-code', userController.resendResetPasswordCode);
+router.post('/verify-code', userController.verifyResetCode);
+router.post('/set-new-password', userController.setNewPassword);
 
-router.post('/confirm-email', UserController.confirmEmail);
-router.post('/resend-confirmation-code', UserController.resendConfirmationCode);
+router.post('/confirm-email', userController.confirmEmail);
+router.post('/resend-confirmation-code', userController.resendConfirmationCode);
 module.exports = router;
 
 
