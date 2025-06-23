@@ -19,6 +19,7 @@ router.post('/set-new-password', userController.setNewPassword);
 
 router.post('/confirm-email', userController.confirmEmail);
 router.post('/resend-confirmation-code', userController.resendConfirmationCode);
+
 module.exports = router;
 
 
